@@ -1,59 +1,64 @@
-# Clearly Prepare Screen Addon
-
-**Автономный** форк [ClearlyPrepareScreen](../gitarchive/new4/ClearlyPrepareScreen-1.0): плавный fade, карта на countdown, overlay статистики.
-
-**GUID:** `com.dematch.clearlypreparescreen.addon`  
-**Путь:** `BepInEx/plugins/ClearlyPrepareScreenAddon/ClearlyPrepareScreenAddon.dll`
-
-> Это **не** патч к оригиналу. Оригинальный ClearlyPrepareScreen (`eft.hiddenhiraigi.clearpreraidscreen`) **не нужен** и **не должен** стоять одновременно — будут дублирующиеся Harmony-патчи.
-
-## Установка / обновление
-
-1. Распаковать zip в корень EscapeFromTarkov.
-2. При **обновлении** удалить только папку `BepInEx/plugins/ClearlyPrepareScreenAddon/` и поставить новую.
-3. **Не удалять** `pitFireTeam`, Fika и другие моды.
-
-## Проверка
-
-`BepInEx/LogOutput.log` → `Clearly Prepare Screen Addon v1.0.x loaded`
-
-## Возможности
-
-- Скрывает `EnvironmentUI` на финальном countdown — видна карта локации
-- За **3 сек** до конца плавно поднимает `PreloaderUI.SetBlackImageAlpha` **0 → 1** за **2 сек**
-- Последнюю **1 сек** держит `alpha = 1` (стыкуется со штатным fade перед «просыпанием»)
-- Overlay (IMGUI): лут, контейнеры, игроки USEC/BEAR/дикие, боты по сторонам, загрузка ботов
-- Восстанавливает `EnvironmentUI` на `GameWorld.OnGameStarted`
-
-## Конфиг (`BepInEx/config/com.dematch.clearlypreparescreen.addon.cfg`)
-
-| Параметр | Default | Описание |
-|----------|---------|----------|
-| Enable Overlay | true | Виджет статистики рейда |
-| Start Before End Seconds | 3 | Когда начинать fade |
-| Fade Duration Seconds | 2 | Длительность fade |
-| Hold Black Before End Seconds | 1 | Удержание полного чёрного |
-| Refresh Interval Seconds | 0.25 | Обновление overlay |
-
-## Сборка
-
-```bash
-python CURSORAIMODING/build_and_deploy_mod.py client-mods/ClearlyPrepareScreenAddon client
-```
-
-## Overlay и ограничения
-
-На countdown **GameWorld уже часто загружен** (особенно Fika/SPT), поэтому live-статистика возможна:
-- `LootList` — предметы и контейнеры на карте
-- `RegisteredPlayers` — живые игроки (не AI)
-- `BotsController.Bots.BotOwners` — боты по `EPlayerSide`
-
-Если мир ещё не создан — overlay показывает «Мир ещё загружается...» и настройку `EBotAmount` из `TarkovApplication.CurrentRaidSettings`.
-
-**Не показывается:** точный состав боссов/ролей `WildSpawnType` (можно добавить позже).
-
-## Совместимость
-
-- SPT 4 / EFT 16.9
-- Fika coop (countdown через `MatchmakerFinalCountdown`)
-- Не ставить вместе с оригинальным ClearlyPrepareScreen (дублирует патчи; используйте **только** этот форк)
+# Clearly Prepare Screen Addon
+
+**GitHub:** [kabzon93region](https://github.com/kabzon93region)
+**Автономный** форк [ClearlyPrepareScreen](../gitarchive/new4/ClearlyPrepareScreen-1.0): плавный fade, карта на countdown, overlay статистики.
+
+**GUID:** `com.dematch.clearlypreparescreen.addon`  
+**Путь:** `BepInEx/plugins/ClearlyPrepareScreenAddon/ClearlyPrepareScreenAddon.dll`
+
+> Это **не** патч к оригиналу. Оригинальный ClearlyPrepareScreen (`eft.hiddenhiraigi.clearpreraidscreen`) **не нужен** и **не должен** стоять одновременно — будут дублирующиеся Harmony-патчи.
+
+## Установка / обновление
+
+1. Распаковать zip в корень EscapeFromTarkov.
+2. При **обновлении** удалить только папку `BepInEx/plugins/ClearlyPrepareScreenAddon/` и поставить новую.
+3. **Не удалять** `pitFireTeam`, Fika и другие моды.
+
+## Проверка
+
+`BepInEx/LogOutput.log` → `Clearly Prepare Screen Addon v1.0.x loaded`
+
+## Возможности
+
+- Скрывает `EnvironmentUI` на финальном countdown — видна карта локации
+- За **3 сек** до конца плавно поднимает `PreloaderUI.SetBlackImageAlpha` **0 → 1** за **2 сек**
+- Последнюю **1 сек** держит `alpha = 1` (стыкуется со штатным fade перед «просыпанием»)
+- Overlay (IMGUI): лут, контейнеры, игроки USEC/BEAR/дикие, боты по сторонам, загрузка ботов
+- Восстанавливает `EnvironmentUI` на `GameWorld.OnGameStarted`
+
+## Конфиг (`BepInEx/config/com.dematch.clearlypreparescreen.addon.cfg`)
+
+| Параметр | Default | Описание |
+|----------|---------|----------|
+| Enable Overlay | true | Виджет статистики рейда |
+| Start Before End Seconds | 3 | Когда начинать fade |
+| Fade Duration Seconds | 2 | Длительность fade |
+| Hold Black Before End Seconds | 1 | Удержание полного чёрного |
+| Refresh Interval Seconds | 0.25 | Обновление overlay |
+
+## Сборка
+
+```bash
+python CURSORAIMODING/build_and_deploy_mod.py client-mods/ClearlyPrepareScreenAddon client
+```
+
+## Overlay и ограничения
+
+На countdown **GameWorld уже часто загружен** (особенно Fika/SPT), поэтому live-статистика возможна:
+- `LootList` — предметы и контейнеры на карте
+- `RegisteredPlayers` — живые игроки (не AI)
+- `BotsController.Bots.BotOwners` — боты по `EPlayerSide`
+
+Если мир ещё не создан — overlay показывает «Мир ещё загружается...» и настройку `EBotAmount` из `TarkovApplication.CurrentRaidSettings`.
+
+**Не показывается:** точный состав боссов/ролей `WildSpawnType` (можно добавить позже).
+
+## Совместимость
+
+- SPT 4 / EFT 16.9
+- Fika coop (countdown через `MatchmakerFinalCountdown`)
+- Не ставить вместе с оригинальным ClearlyPrepareScreen (дублирует патчи; используйте **только** этот форк)
+
+## Поддержать проект
+Разовый донат картой РФ, СБП, ЮMoney, VK Pay:  
+**[DonationAlerts → kabzon93region](https://www.donationalerts.com/r/kabzon93region)**
